@@ -17,7 +17,7 @@ router.post("/short", async (req, res) => {
     visit_history: [],
   })
     .then(() => {
-      res.json(short_url);
+      res.json({short_url, url});
       logger.info("Url shortened successfully");
     })
     .catch((err) => {
@@ -49,7 +49,7 @@ router.get("/analytics/:id", async (req, res) => {
   await Url.findOne({ short_url: id })
     .then((url) => {
       if (!url) return res.status(404).json({ error: "Url not found" });
-      res.json({"total-clicked ":url.visit_history.length, "analytics ": url.visit_history});
+      res.json({"totalView":url.visit_history.length, "analytics": url.visit_history});
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });

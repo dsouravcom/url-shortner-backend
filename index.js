@@ -46,7 +46,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api", router);
+app.use("/", router);
 app.get("/test", (req, res) => {
   res.send("Hello World!");
 });
