@@ -46,10 +46,11 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", router);
+
 app.get("/test", (req, res) => {
   res.send("Hello World!");
 });
+app.use("/", router);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
