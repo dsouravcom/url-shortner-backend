@@ -1,4 +1,9 @@
 import { createLogger, transports, format } from 'winston';
+import {Logtail} from "@logtail/node";
+import { LogtailTransport } from '@logtail/winston';
+import "dotenv/config";
+
+const logtail = new Logtail(process.env.LOGTAIL_API_KEY);
 
 const logger = createLogger({
   level: 'info', // Set the default log level
@@ -8,6 +13,7 @@ const logger = createLogger({
   ),
   transports: [
     new transports.Console(), // Log to console
+    new LogtailTransport(logtail)
   ]
 });
 

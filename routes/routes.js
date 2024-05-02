@@ -17,7 +17,7 @@ router.post("/short", async (req, res) => {
     visit_history: [],
   })
     .then(() => {
-      res.json({short_url, url});
+      res.json({ short_url, url });
       logger.info("Url shortened successfully");
     })
     .catch((err) => {
@@ -31,7 +31,7 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
   await Url.findOneAndUpdate(
     { short_url: id },
-    { $push: { visit_history: {timeStamp: Date.now()} } }
+    { $push: { visit_history: { timeStamp: Date.now() } } }
   )
     .then((url) => {
       if (!url) return res.status(404).json({ error: "Url not found" });
@@ -49,12 +49,20 @@ router.get("/analytics/:id", async (req, res) => {
   await Url.findOne({ short_url: id })
     .then((url) => {
       if (!url) return res.status(404).json({ error: "Url not found" });
-      res.json({"totalView":url.visit_history.length, "analytics": url.visit_history});
+      res.json({
+        totalView: url.visit_history.length,
+        analytics: url.visit_history,
+      });
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
       logger.error("Error fetching url analytics", err);
     });
-  });
+});
+
+// Redirect to the main website
+router.get("/", (req, res) => {
+  res.redirect("https://www.minilink.live");
+});
 
 export default router;
