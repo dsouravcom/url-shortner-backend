@@ -10,6 +10,11 @@ router.post("/short", async (req, res) => {
   const short_url = nanoid(8);
 
   if (!url) return res.status(400).json({ error: "Url is required" });
+  // validate the url 
+  const urlRegex = /^(https?|ftp):\/\/([a-zA-Z0-9-]+\.)+[a-zA-Z0-9-]+(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=]*)?$/;
+  if (!urlRegex.test(url)) {
+    return res.status(400).json({ error: "Invalid url" });
+  }
 
   await Url.create({
     original_url: url,
@@ -62,7 +67,7 @@ router.get("/analytics/:id", async (req, res) => {
 
 // Redirect to the main website
 router.get("/", (req, res) => {
-  res.redirect("https://www.minilink.live");
+  res.redirect("https://www.sorti.in");
 });
 
 export default router;

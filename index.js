@@ -15,7 +15,7 @@ mongoose
   });
 
 const app = express();
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 // Configure the CORS for whitelisted domains.
 const allowedOrigins = process.env.WHITELISTED_DOMAINS;
