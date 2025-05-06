@@ -67,7 +67,7 @@ router.get("/analytics/:id", async (req, res) => {
 
 // Redirect to the main website
 router.get("/", (req, res) => {
-  res.redirect("https://www.sorti.in");
+  res.redirect(301, "https://www.sorti.in");
 });
 
 export default router;
