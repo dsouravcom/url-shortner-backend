@@ -3,7 +3,9 @@ import {Logtail} from "@logtail/node";
 import { LogtailTransport } from '@logtail/winston';
 import "dotenv/config";
 
-const logtail = new Logtail(process.env.LOGTAIL_API_KEY);
+const logtail = new Logtail(process.env.LOGTAIL_API_KEY, {
+  endpoint: process.env.LOGTAIL_SOURCE_ENDPOINT 
+});
 
 const logger = createLogger({
   level: 'info', // Set the default log level
