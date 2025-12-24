@@ -1,11 +1,11 @@
 import cors from "cors";
 import dotenv from "dotenv";
+dotenv.config();
 import express, { Request, Response } from "express";
 import connectDB from "./config/database";
 import { generalLimiter } from "./config/rateLimiter";
 import urlRoutes from "./routes/url.routes";
 import type { CorsOriginCallback } from "./types";
-dotenv.config();
 
 // Connect to MongoDB with optimized configuration
 connectDB();
