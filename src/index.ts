@@ -1,16 +1,20 @@
 import cors from "cors";
 import dotenv from "dotenv";
-dotenv.config();
 import express, { Request, Response } from "express";
 import connectDB from "./config/database";
 import { generalLimiter } from "./config/rateLimiter";
 import urlRoutes from "./routes/url.routes";
 import type { CorsOriginCallback } from "./types";
+dotenv.config();
 
 // Connect to MongoDB with optimized configuration
 connectDB();
 
 const app = express();
+
+// Trust proxy for rate limiting (needed when behind a reverse proxy like Nginx or Heroku)
+app.set("trust proxy", 1);
+
 const PORT = process.env.PORT || 3000;
 
 // Configure the CORS for whitelisted domains.
